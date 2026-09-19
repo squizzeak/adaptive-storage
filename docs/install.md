@@ -105,6 +105,12 @@ Copilot CLI can manage personal skills with `copilot skill add`, and its persona
 
 ### OpenCode
 
+OpenCode supports both native Agent Skills and native executable plugins. The current release implements the skill installation routes below; it does **not yet ship an OpenCode JavaScript/TypeScript plugin entry point**. That is a packaging gap in Adaptive Storage, not a lack of plugin support in OpenCode.
+
+OpenCode's [native plugin interface](https://opencode.ai/docs/plugins/) loads JavaScript/TypeScript modules from `.opencode/plugins/` for a project or `~/.config/opencode/plugins/` globally. It also loads npm packages named in the `plugin` array in `opencode.json`. These modules export plugin functions and can attach hooks, including session lifecycle events. The existing Codex/Claude manifests and Pi `package.json` in this repository are not an OpenCode executable plugin; do not put this package in OpenCode's `plugin` array and expect it to load as one.
+
+An optional OpenCode adapter could provide host-native activation and command integration while leaving the portable skills usable without it. Such an adapter would be a separate executable component requiring implementation and host testing; it would not require MCP. Its hooks must preserve user-selected routing and must not equate an idle session with permission to publish unfinished work.
+
 Use the shared `~/.agents/skills/` installation above, or copy **both** `skills/adaptive-storage/` and `skills/storage-init/` into `~/.config/opencode/skills/`. OpenCode documents native skill discovery from both locations.
 
 Vercel's community `skills` CLI also targets OpenCode's documented global directory and can select both skills from this public Git repository:

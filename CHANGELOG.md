@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Clarify OpenCode's native plugin support and distinguish it from Adaptive Storage's currently implemented skill-only installation routes.
+
 ## 0.1.0 — 2026-09-19
 
 - Add portable adaptive-storage and storage-init skills with no required MCP or runtime.

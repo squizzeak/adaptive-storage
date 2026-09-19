@@ -63,6 +63,8 @@ Then ask Copilot to use `/adaptive-storage/storage-init`. Copilot's plugin-quali
 
 ### OpenCode through the community Skills CLI
 
+OpenCode has a native JavaScript/TypeScript plugin system. This release ships its skill installation routes, but an optional OpenCode executable plugin adapter is not yet implemented. See the [OpenCode installation details](docs/install.md#opencode) for the supported plugin mechanisms and the current package boundary.
+
 Vercel's open source `skills` CLI can install both skills into OpenCode's global skill directory:
 
 ```sh
