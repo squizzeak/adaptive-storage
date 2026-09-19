@@ -63,13 +63,15 @@ Then ask Copilot to use `/adaptive-storage/storage-init`. Copilot's plugin-quali
 
 ### OpenCode native plugin or community Skills CLI
 
-The optional [native OpenCode adapter](adapters/opencode/README.md) registers `/storage-init`, discovers both bundled skills, and adds storage-routing reminders to session model calls. Clone this repository and merge its absolute entrypoint into your global OpenCode configuration:
+Install the optional [native OpenCode adapter](adapters/opencode/README.md) directly from GitHub:
 
-```json
-{"plugin": ["file:///absolute/path/adaptive-storage/adapters/opencode/index.mjs"]}
+```sh
+opencode plugin "adaptive-storage-skills@github:squizzeak/adaptive-storage" --global
 ```
 
-Keep the complete checkout together, preserve existing configuration, and restart OpenCode. The adapter has no dependencies or mandatory MCP server. Its [installation guide](adapters/opencode/README.md) covers options, project scope, and verification.
+This command was tested with **OpenCode 1.18.30**. It downloads the adapter and both skills, then registers the plugin globally. Restart OpenCode and run `/storage-init`. No manual clone, npm registry publication, or MCP server is required.
+
+Use the full package-name-qualified reference shown above; the shorter `github:squizzeak/adaptive-storage` form failed in our 1.18.30 test. CLI syntax can differ in other OpenCode versions. The [adapter guide](adapters/opencode/README.md) also covers checkout installation, options, and verification.
 
 For a skill-only installation, Vercel's open source `skills` CLI can install both skills into OpenCode's global skill directory:
 

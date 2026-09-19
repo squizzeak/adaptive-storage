@@ -76,3 +76,23 @@ It does not verify a real model's skill adherence, accepted storage setup, live
 connector synchronization, or end-to-end host compaction. The system and compaction
 hooks remain experimental and should be checked when upgrading OpenCode. The hook
 may run on session-associated title/summary requests as well as the principal turn.
+
+
+### Direct GitHub installation
+
+On OpenCode **1.18.30**, the following command successfully downloaded the public
+repository package, detected its server entrypoint, and registered it in a temporary
+global configuration:
+
+```sh
+opencode plugin "adaptive-storage-skills@github:squizzeak/adaptive-storage" --global
+```
+
+A subsequent `opencode debug config` successfully loaded the downloaded adapter,
+showed `storage-init`, and showed the bundled skills path inside OpenCode's package
+cache. The first config inspection timed out; the later inspection completed.
+The unqualified `github:squizzeak/adaptive-storage` and `git+https` attempts failed,
+so the documentation recommends the tested package-name-qualified form. Tests used
+temporary application directories and an isolated npm cache, leaving the user's
+actual global configuration unchanged. This extends installation/load evidence;
+it does not add a real-model or live-storage synchronization test.

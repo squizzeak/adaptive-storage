@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Make the verified, package-name-qualified direct GitHub installation command the recommended OpenCode route; retain checkout installation and document version-specific evidence.
+
 ## 0.2.0 — 2026-09-19
 
 - Add an optional native OpenCode adapter with `/storage-init` and bundled skill discovery.

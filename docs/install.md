@@ -25,7 +25,7 @@ The public repository is [`squizzeak/adaptive-storage`](https://github.com/squiz
 | Route | Best for | What is installed |
 | --- | --- | --- |
 | Native marketplace | Codex, Claude Code, or Copilot CLI users who want the host to track an installable plugin | The skill-only plugin under `plugins/adaptive-storage/` |
-| Native OpenCode adapter | OpenCode users who want `/storage-init` and automatic routing reminders | Optional executable adapter plus both canonical skills in a stable checkout |
+| Native OpenCode adapter | OpenCode users who want `/storage-init` and automatic routing reminders | Optional executable adapter plus both canonical skills, downloaded from GitHub or kept in a stable checkout |
 | Community skill installer | OpenCode users who want a package manager to place both skills in OpenCode's global skill directory | Both canonical skills, selected from the public Git repository |
 | Shared global folder | People who use several compatible hosts on one machine | Both canonical folders copied under `~/.agents/skills/` |
 | Host-specific folder | One host, or a host that does not scan `~/.agents/skills/` | Both canonical folders in that host's user skill directory |
@@ -106,7 +106,15 @@ Copilot CLI can manage personal skills with `copilot skill add`, and its persona
 
 ### OpenCode
 
-The optional [native OpenCode adapter](../adapters/opencode/README.md) registers `/storage-init`, adds both bundled skill folders to discovery, and appends routing reminders during session model calls and compaction. It requires no MCP or additional dependency. Add its absolute `file://` entrypoint to the global OpenCode `plugin` array, or use the documented local shim. Keep the complete repository checkout together.
+The optional [native OpenCode adapter](../adapters/opencode/README.md) registers `/storage-init`, adds both bundled skill folders to discovery, and appends routing reminders during session model calls and compaction. It requires no MCP or additional dependency. Install it globally from GitHub with the command verified on **OpenCode 1.18.30**:
+
+```sh
+opencode plugin "adaptive-storage-skills@github:squizzeak/adaptive-storage" --global
+```
+
+Restart OpenCode and run `/storage-init`. Use the full package-name-qualified reference; the shorter GitHub-only form failed in our test. No manual clone or npm registry publication is required. Other OpenCode versions may use different CLI syntax; check `opencode plugin --help`.
+
+The adapter guide also documents a complete local checkout and a global shim as alternatives. Choose one route to avoid duplicate loading.
 
 See the adapter guide for exact configuration, an automatic-routing opt-out, command collision handling, and project-only installation. It preserves existing commands and permissions. Startup does not choose storage or publish data; the agent runs the shared setup workflow on applicable use.
 

@@ -81,6 +81,7 @@ Primary sources:
 
 - [Agent Skills — OpenCode](https://opencode.ai/docs/skills)
 - [Native plugins — OpenCode](https://opencode.ai/docs/plugins/)
+- [Package specifier and entrypoint resolution — OpenCode 1.18.30 source](https://github.com/anomalyco/opencode/blob/v1.18.30/packages/opencode/src/plugin/shared.ts)
 - [Instructions — OpenCode](https://opencode.ai/v2/docs/instructions)
 - [Configuration — OpenCode](https://opencode.ai/docs/config/)
 - [Skills CLI reference — skills.sh](https://skills.sh/docs/cli)
@@ -94,6 +95,7 @@ Facts used:
 - The global instruction file is `~/.config/opencode/AGENTS.md`.
 - OpenCode plugins are configured separately through its configuration and npm-oriented plugin mechanism.
 - Native plugins are JavaScript/TypeScript modules loaded from project/global plugin directories or npm packages in the configuration's `plugin` array. They can register hooks, including session lifecycle events. Adaptive Storage supplies an optional executable adapter using the config, system-transform, and compaction hooks; see its installation guide and the runtime evidence in validation.md.
+- Direct GitHub installation was tested on OpenCode 1.18.30 using `opencode plugin "adaptive-storage-skills@github:squizzeak/adaptive-storage" --global`. The qualified form installed and loaded; the shorter GitHub-only form failed in this test. Treat this as version-specific runtime evidence, not a guarantee for every CLI version.
 - Vercel's open source `skills` CLI accepts GitHub repositories, supports global installation, can select multiple named skills, and lists OpenCode as a target agent. The CLI's own documentation says anonymous telemetry is enabled by default and documents `DISABLE_TELEMETRY=1` as the opt-out.
 
 Compatibility note: no primary OpenCode source found support for installing a Codex `.agents/plugins/marketplace.json` or Claude `.claude-plugin/marketplace.json`. skills.sh is a community directory and package installer, not an OpenCode-native marketplace. This repository therefore makes no native marketplace-compatibility claim for OpenCode.

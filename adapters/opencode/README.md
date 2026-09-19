@@ -8,7 +8,35 @@ It uses OpenCode's `config`, `experimental.chat.system.transform`, and
 `experimental.session.compacting` hooks. The experimental hooks are version-sensitive;
 consult the verification record below when upgrading OpenCode.
 
-## Install globally from a checkout
+## Install globally from GitHub (recommended)
+
+With OpenCode **1.18.30**, run:
+
+```sh
+opencode plugin "adaptive-storage-skills@github:squizzeak/adaptive-storage" --global
+```
+
+OpenCode downloads the package from GitHub into its managed cache and adds the
+plugin to its global configuration. The package includes the adapter and both
+skills. No manual clone or npm registry publication is needed. Restart OpenCode,
+verify the skills are available, and run `/storage-init`.
+
+Use the full package-name-qualified reference above. The shorter
+`github:squizzeak/adaptive-storage` reference failed during our 1.18.30 test; the
+qualified form installed successfully, and a subsequent `opencode debug config`
+confirmed the downloaded adapter registered `storage-init` and its bundled skill
+path. This test used temporary configuration, not the user's actual global setup.
+
+This syntax is verified for 1.18.30. Other versions may change the plugin CLI or
+configuration format; check `opencode plugin --help` before adapting the command.
+The command follows the repository's default branch; it does not pin a release.
+Do not install a second checkout or shim copy alongside the managed package.
+
+The OpenCode installer updates its configuration on disk. The adapter itself only
+updates resolved configuration in memory and does not initialize storage policy
+until the agent follows the setup workflow.
+
+## Install globally from a checkout (alternative)
 
 Clone the complete repository to a stable location. Keep `adapters/` and `skills/`
 in the same checkout; moving only `index.mjs` will fail with an incomplete-package
@@ -51,18 +79,21 @@ contain this optional adapter.
 
 ## Options
 
-OpenCode versions supporting plugin option tuples can configure:
+For a GitHub installation on OpenCode 1.18.30, replace its existing plugin entry
+with an option tuple rather than adding a second entry:
 
 ```json
 {
   "plugin": [
     [
-      "file:///absolute/path/adaptive-storage/adapters/opencode/index.mjs",
+      "adaptive-storage-skills@github:squizzeak/adaptive-storage",
       { "automatic": false, "commandName": "adaptive-storage-init" }
     ]
   ]
 }
 ```
+
+For a checkout installation, use its `file://` URL as the tuple's first item instead.
 
 - `automatic` defaults to `true`. It adds routing instructions to session model
   calls and a preservation reminder to compaction context. `false` retains skill
