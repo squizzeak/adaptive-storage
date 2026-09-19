@@ -1,0 +1,34 @@
+{
+  "name": "adaptive-storage",
+  "version": "0.1.0",
+  "description": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
+  "author": {
+    "name": "Todd Hendricks",
+    "url": "https://github.com/squizzeak"
+  },
+  "homepage": "https://github.com/squizzeak/adaptive-storage",
+  "repository": "https://github.com/squizzeak/adaptive-storage",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "storage",
+    "context",
+    "sync",
+    "markdown"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Adaptive Storage",
+    "shortDescription": "Choose storage and sync context across workspaces.",
+    "longDescription": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
+    "developerName": "Todd Hendricks",
+    "category": "Productivity",
+    "capabilities": [],
+    "websiteURL": "https://github.com/squizzeak/adaptive-storage",
+    "privacyPolicyURL": "https://github.com/squizzeak/adaptive-storage/blob/main/PRIVACY.md",
+    "defaultPrompt": [
+      "Configure my storage with storage-init.",
+      "Review storage options for this project."
+    ]
+  }
+}

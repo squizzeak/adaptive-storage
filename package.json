@@ -1,0 +1,15 @@
+{
+  "name": "adaptive-storage-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
+  "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}

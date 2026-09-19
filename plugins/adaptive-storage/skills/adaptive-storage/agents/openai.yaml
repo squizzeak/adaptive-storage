@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adaptive Storage"
+  short_description: "Choose storage and sync context across agent workspaces"
+  default_prompt: "Use $adaptive-storage to discover storage options and configure this workspace."

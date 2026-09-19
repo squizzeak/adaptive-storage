@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "policy_id": "example-global-policy",
+  "revision": 1,
+  "setup_state": "incomplete",
+  "selection_mode": "user-selected",
+  "allowed_destinations": {},
+  "defaults": {
+    "working_preference": "durable-local-if-available",
+    "publication_trigger": "completed-unit-of-work",
+    "routes": {
+      "tasks": {
+        "working": null,
+        "canonical": null
+      },
+      "notes": {
+        "working": null,
+        "canonical": null
+      },
+      "artifacts": {
+        "working": null,
+        "canonical": null
+      }
+    }
+  }
+}

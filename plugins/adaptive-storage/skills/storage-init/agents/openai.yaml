@@ -1,0 +1,4 @@
+interface:
+  display_name: "Storage Init"
+  short_description: "Set up global storage defaults and project overrides"
+  default_prompt: "Use $storage-init to discover storage engines and configure my storage policy."

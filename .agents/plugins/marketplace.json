@@ -1,0 +1,20 @@
+{
+  "name": "adaptive-storage",
+  "interface": {
+    "displayName": "Adaptive Storage"
+  },
+  "plugins": [
+    {
+      "name": "adaptive-storage",
+      "source": {
+        "source": "local",
+        "path": "./plugins/adaptive-storage"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

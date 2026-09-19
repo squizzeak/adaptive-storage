@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "workspace_id": "example-workspace",
+  "policy_id": "example-global-policy",
+  "binding_state": "unresolved",
+  "overrides": {
+    "publication_trigger": "explicit-checkpoint",
+    "routes": {
+      "artifacts": {
+        "replicas": []
+      }
+    }
+  },
+  "notes": "Illustrative override: inherit all unspecified routes; resolve exact authorized locators before publication."
+}

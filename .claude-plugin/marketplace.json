@@ -1,0 +1,17 @@
+{
+  "name": "adaptive-storage",
+  "owner": {
+    "name": "Todd Hendricks"
+  },
+  "metadata": {
+    "description": "Portable storage workflow skills"
+  },
+  "plugins": [
+    {
+      "name": "adaptive-storage",
+      "source": "./plugins/adaptive-storage",
+      "description": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
+      "version": "0.1.0"
+    }
+  ]
+}
