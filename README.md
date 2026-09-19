@@ -61,11 +61,17 @@ copilot plugin install adaptive-storage@adaptive-storage
 
 Then ask Copilot to use `/adaptive-storage/storage-init`. Copilot's plugin-qualified skill separator is `/`, while Claude Code and OpenAI plugin identities use `:`.
 
-### OpenCode through the community Skills CLI
+### OpenCode native plugin or community Skills CLI
 
-OpenCode has a native JavaScript/TypeScript plugin system. This release ships its skill installation routes, but an optional OpenCode executable plugin adapter is not yet implemented. See the [OpenCode installation details](docs/install.md#opencode) for the supported plugin mechanisms and the current package boundary.
+The optional [native OpenCode adapter](adapters/opencode/README.md) registers `/storage-init`, discovers both bundled skills, and adds storage-routing reminders to session model calls. Clone this repository and merge its absolute entrypoint into your global OpenCode configuration:
 
-Vercel's open source `skills` CLI can install both skills into OpenCode's global skill directory:
+```json
+{"plugin": ["file:///absolute/path/adaptive-storage/adapters/opencode/index.mjs"]}
+```
+
+Keep the complete checkout together, preserve existing configuration, and restart OpenCode. The adapter has no dependencies or mandatory MCP server. Its [installation guide](adapters/opencode/README.md) covers options, project scope, and verification.
+
+For a skill-only installation, Vercel's open source `skills` CLI can install both skills into OpenCode's global skill directory:
 
 ```sh
 npx skills add squizzeak/adaptive-storage -g -a opencode --skill adaptive-storage --skill storage-init
@@ -104,7 +110,8 @@ Run setup explicitly the first time you want persistent storage behavior:
 - GitHub Copilot CLI direct install: `Use the /storage-init skill`
 - GitHub Copilot CLI plugin: `Use the /adaptive-storage/storage-init skill`
 - Pi: `/skill:storage-init`
-- OpenCode or Gemini CLI: `Use the storage-init skill`
+- OpenCode native adapter: `/storage-init`
+- OpenCode skill-only or Gemini CLI: `Use the storage-init skill`
 
 Setup does four things:
 
@@ -204,7 +211,7 @@ This matrix separates documentation and package-shape checks from live end-to-en
 | Codex / ChatGPT desktop | Yes; CLI `plugin add` also checked in Codex CLI 0.155.0 | `.agents/plugins/marketplace.json` plus Agent Plugins package | Not yet | Not yet |
 | Claude Code | Yes | `.claude-plugin/marketplace.json` plus Claude-compatible manifest | Not yet | Not yet |
 | GitHub Copilot CLI | Yes | Claude-compatible marketplace plus portable Agent Plugins manifest | Not yet | Not yet |
-| OpenCode | Yes | Direct install, or the community `skills` CLI targeting OpenCode | Not yet | Not yet |
+| OpenCode | Yes | Optional native adapter, direct skills, or community Skills CLI | Adapter runtime smoke tested on 1.18.30; see validation record | Hook injection tested; real model storage workflow not yet tested |
 | Pi | Yes | `package.json` declares both canonical skills through `pi.skills` | Not yet | Not yet |
 | Gemini CLI | Yes | Direct `~/.agents/skills` or native skill-folder install | Not yet | Not yet |
 

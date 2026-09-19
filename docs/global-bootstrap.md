@@ -1,5 +1,9 @@
 # Global activation instruction
 
+The optional OpenCode adapter supplies this routing reminder through its native
+hooks; it does not need a duplicate global instruction. For skill-only installs,
+use the following procedure.
+
 Install both skills globally using the [installation guide](install.md). Merge the
 following paragraph into the host's supported user-level instruction mechanism;
 preserve existing instructions. Use the host's namespaced skill name if its plugin

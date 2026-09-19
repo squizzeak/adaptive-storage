@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "adaptive-storage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
   "author": {
     "name": "Todd Hendricks",

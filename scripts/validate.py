@@ -58,8 +58,16 @@ def validate(root: Path) -> None:
             json.loads(path.read_text())
     if json.loads((root / 'package.json').read_text())['pi']['skills'] != ['./skills']:
         raise ValueError('Pi package must include both skills')
+    package = json.loads((root / 'package.json').read_text())
+    entry = './adapters/opencode/index.mjs'
+    if package['main'] != entry or package['exports']['.'] != entry or not (root / entry).is_file():
+        raise ValueError('Invalid OpenCode package entrypoint')
+    if package['version'] not in versions or claude['plugins'][0]['version'] not in versions:
+        raise ValueError('Distribution versions differ')
+    if not {'adapters/opencode/', 'skills/'}.issubset(package['files']):
+        raise ValueError('OpenCode package omits adapter or sibling skills')
     names = inventory(plugin)
-    if any(name.endswith(('.py', '.js', '.ts')) or 'mcp.json' in name for name in names):
+    if any(name.endswith(('.py', '.js', '.ts', '.mjs', '.cjs')) or 'mcp.json' in name for name in names):
         raise ValueError('Runtime code/server configuration found in skill-only bundle')
     validate_links(root)
     print('Validated sibling skills, package identity, generated parity, JSON, local links, and skill-only boundary')

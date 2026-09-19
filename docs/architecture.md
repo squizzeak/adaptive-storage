@@ -7,7 +7,10 @@ refresh, routing, and completion-time publication. Both read the same policy.
 The host provides tools. The agent inspects their schemas and maps supported
 operations to the workflow. There is no bundled adapter daemon, server, network
 client, hidden account, mandatory Git executable, or mandatory MCP connection.
-Optional plugin manifests distribute the same skills without adding runtime tools.
+Optional marketplace manifests distribute the same skills without adding runtime tools.
+The separate OpenCode adapter adds skill discovery, an explicit setup command, and
+system/compaction routing reminders. It does not implement storage operations,
+initialize policy at startup, or publish on idle events.
 
 ## Decision model
 

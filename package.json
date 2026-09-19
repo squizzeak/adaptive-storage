@@ -1,6 +1,6 @@
 {
   "name": "adaptive-storage-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Discover storage engines, configure global and project policies, and route tasks, notes, and artifacts with verified synchronization.",
   "license": "MIT",
@@ -11,5 +11,26 @@
     "skills": [
       "./skills"
     ]
+  },
+  "type": "module",
+  "main": "./adapters/opencode/index.mjs",
+  "exports": {
+    ".": "./adapters/opencode/index.mjs",
+    "./opencode": "./adapters/opencode/index.mjs",
+    "./server": "./adapters/opencode/index.mjs"
+  },
+  "files": [
+    "adapters/opencode/",
+    "skills/",
+    "LICENSE",
+    "PRIVACY.md",
+    "README.md",
+    "docs/",
+    "examples/",
+    "AGENTS.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/opencode.test.mjs"
   }
 }

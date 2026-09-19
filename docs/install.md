@@ -1,6 +1,6 @@
 # Installing Adaptive Storage
 
-Adaptive Storage is an instruction-only, two-skill package:
+Adaptive Storage has a portable, instruction-only core with two skills and an optional native OpenCode adapter:
 
 - `storage-init` is the explicit setup entry point.
 - `adaptive-storage` applies the saved policy during persistent project work and runs the same setup flow automatically if configuration is still missing.
@@ -25,6 +25,7 @@ The public repository is [`squizzeak/adaptive-storage`](https://github.com/squiz
 | Route | Best for | What is installed |
 | --- | --- | --- |
 | Native marketplace | Codex, Claude Code, or Copilot CLI users who want the host to track an installable plugin | The skill-only plugin under `plugins/adaptive-storage/` |
+| Native OpenCode adapter | OpenCode users who want `/storage-init` and automatic routing reminders | Optional executable adapter plus both canonical skills in a stable checkout |
 | Community skill installer | OpenCode users who want a package manager to place both skills in OpenCode's global skill directory | Both canonical skills, selected from the public Git repository |
 | Shared global folder | People who use several compatible hosts on one machine | Both canonical folders copied under `~/.agents/skills/` |
 | Host-specific folder | One host, or a host that does not scan `~/.agents/skills/` | Both canonical folders in that host's user skill directory |
@@ -105,13 +106,11 @@ Copilot CLI can manage personal skills with `copilot skill add`, and its persona
 
 ### OpenCode
 
-OpenCode supports both native Agent Skills and native executable plugins. The current release implements the skill installation routes below; it does **not yet ship an OpenCode JavaScript/TypeScript plugin entry point**. That is a packaging gap in Adaptive Storage, not a lack of plugin support in OpenCode.
+The optional [native OpenCode adapter](../adapters/opencode/README.md) registers `/storage-init`, adds both bundled skill folders to discovery, and appends routing reminders during session model calls and compaction. It requires no MCP or additional dependency. Add its absolute `file://` entrypoint to the global OpenCode `plugin` array, or use the documented local shim. Keep the complete repository checkout together.
 
-OpenCode's [native plugin interface](https://opencode.ai/docs/plugins/) loads JavaScript/TypeScript modules from `.opencode/plugins/` for a project or `~/.config/opencode/plugins/` globally. It also loads npm packages named in the `plugin` array in `opencode.json`. These modules export plugin functions and can attach hooks, including session lifecycle events. The existing Codex/Claude manifests and Pi `package.json` in this repository are not an OpenCode executable plugin; do not put this package in OpenCode's `plugin` array and expect it to load as one.
+See the adapter guide for exact configuration, an automatic-routing opt-out, command collision handling, and project-only installation. It preserves existing commands and permissions. Startup does not choose storage or publish data; the agent runs the shared setup workflow on applicable use.
 
-An optional OpenCode adapter could provide host-native activation and command integration while leaving the portable skills usable without it. Such an adapter would be a separate executable component requiring implementation and host testing; it would not require MCP. Its hooks must preserve user-selected routing and must not equate an idle session with permission to publish unfinished work.
-
-Use the shared `~/.agents/skills/` installation above, or copy **both** `skills/adaptive-storage/` and `skills/storage-init/` into `~/.config/opencode/skills/`. OpenCode documents native skill discovery from both locations.
+Skill-only alternatives remain available. Use the shared `~/.agents/skills/` installation above, or copy **both** `skills/adaptive-storage/` and `skills/storage-init/` into `~/.config/opencode/skills/`. OpenCode documents native skill discovery from both locations.
 
 Vercel's community `skills` CLI also targets OpenCode's documented global directory and can select both skills from this public Git repository:
 
@@ -141,7 +140,7 @@ Gemini asks for consent when a remote skill is installed and again when a skill 
 
 ## Add a routing instruction
 
-Being installed means a host can discover the skill. It does not guarantee that every new session will choose it. Skill selection depends on the request, the skill description, host policy, and available context. Add this short instruction to your host's global instruction file if you want consistent routing:
+The OpenCode adapter already supplies the routing reminder below; do not add a duplicate instruction when using it. For skill-only installations, being installed means a host can discover the skill. It does not guarantee that every new session will choose it. Skill selection depends on the request, the skill description, host policy, and available context. Add this short instruction to your host's global instruction file if you want consistent routing:
 
 > For project task tracking, durable project notes, or retained artifacts, load and follow the `adaptive-storage` skill. If the current project has no applicable accepted storage route, run the `storage-init` setup flow first. Both skills share the same accepted configuration.
 
@@ -171,9 +170,10 @@ Open a session in the project you want to manage and invoke the skill explicitly
 | GitHub Copilot CLI, direct skills | `Use the /storage-init skill to set up global storage defaults and bind this project.` |
 | GitHub Copilot CLI, plugin | `Use the /adaptive-storage/storage-init skill to set up global storage defaults and bind this project.` |
 | Pi | `/skill:storage-init Set up global storage defaults and bind this project.` |
-| OpenCode, Gemini CLI | `Use the storage-init skill to set up global storage defaults and bind this project.` |
+| OpenCode native adapter | `/storage-init Set up global storage defaults and bind this project.` |
+| OpenCode skill-only, Gemini CLI | `Use the storage-init skill to set up global storage defaults and bind this project.` |
 
-`storage-init` is a convenient explicit entry point, not a separate runtime. Invoking `adaptive-storage` for persistent work with no completed configuration runs the same first-use setup. There is no bootstrap program and no daemon or hook that needs to remain running.
+`storage-init` is a convenient explicit entry point, not a separate runtime. Invoking `adaptive-storage` for persistent work with no completed configuration runs the same first-use setup. The portable skills need no daemon. OpenCode users may opt into the adapter hooks.
 
 The initial setup can establish user-level defaults, bind only the current project, or do both, according to what you accept. Later projects inherit accepted global defaults unless you approve a project override. A project-only acceptance completes setup for that project and does not create a global completion marker; later sessions in the same project should reuse its binding without repeating global prompts. A global installation only makes the skills discoverable; it does not itself create configuration or share project records.
 

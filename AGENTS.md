@@ -21,3 +21,7 @@ Checks: `python3 scripts/build.py --check`, `python3 scripts/validate.py`, and
 `python3 -m unittest discover -s tests -v`. Behavioral scenarios in
 `tests/scenarios.md` require independent agent review; structural checks alone do
 not prove runtime compliance. New provider examples must not become selection defaults.
+
+The optional OpenCode adapter lives outside the skill-only marketplace bundle in
+`adapters/opencode/`. Keep its hooks free of storage writes, network calls, and
+autonomous model calls. Run `npm test` for adapter regressions.

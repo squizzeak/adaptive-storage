@@ -93,7 +93,7 @@ Facts used:
 - Skills are loaded on demand with OpenCode's native `skill` tool.
 - The global instruction file is `~/.config/opencode/AGENTS.md`.
 - OpenCode plugins are configured separately through its configuration and npm-oriented plugin mechanism.
-- Native plugins are JavaScript/TypeScript modules loaded from project/global plugin directories or npm packages in the configuration's `plugin` array. They can register hooks, including session lifecycle events. Adaptive Storage currently has no executable entry point for that interface; this is a package limitation, not an OpenCode limitation.
+- Native plugins are JavaScript/TypeScript modules loaded from project/global plugin directories or npm packages in the configuration's `plugin` array. They can register hooks, including session lifecycle events. Adaptive Storage supplies an optional executable adapter using the config, system-transform, and compaction hooks; see its installation guide and the runtime evidence in validation.md.
 - Vercel's open source `skills` CLI accepts GitHub repositories, supports global installation, can select multiple named skills, and lists OpenCode as a target agent. The CLI's own documentation says anonymous telemetry is enabled by default and documents `DISABLE_TELEMETRY=1` as the opt-out.
 
 Compatibility note: no primary OpenCode source found support for installing a Codex `.agents/plugins/marketplace.json` or Claude `.claude-plugin/marketplace.json`. skills.sh is a community directory and package installer, not an OpenCode-native marketplace. This repository therefore makes no native marketplace-compatibility claim for OpenCode.
